@@ -1,0 +1,99 @@
+﻿@model Mv.Models.slider
+@{
+    ViewBag.Title = "Slider";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="choose_box remov_padd">
+    @using (Html.BeginForm("bmslider", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        if (ViewBag.Msg != null)
+        {
+            <div class="alert alert-danger" role="alert"><strong>Error!</strong>&nbsp;@ViewBag.Msg</div>
+        }
+        <div class="sub_page">
+            <h2>Slider</h2>
+            <p>&nbsp;</p>
+            @Html.HiddenFor(m => m.id)
+            @Html.HiddenFor(m => m.sliderimage)
+            <div class="page_box">
+                <div class="left_side">Image Title</div>
+                <div class="right_side">
+                    @Html.TextBoxFor(m => m.slidername, new { required = "required" })
+                    @Html.ValidationMessageFor(m => m.slidername)
+                </div>
+            </div>
+            <div class="page_box">
+                <div class="left_side">Upload Image</div>
+                <div class="right_side">
+                    @Html.TextBox("imgs", null, new { @type = "file", @required = "required" })@if (ViewBag.ErMsg != null)
+                    {<span class="field-validation-error">@ViewBag.ErMsg</span>}
+                    @if (Model.sliderimage != null)
+                    {<a class="lightbox-img" href="/Up//@Model.sliderimage">View Image</a>}
+                </div>
+            </div>
+            <div class="page_box">
+                <div class="left_side">Redirect Url</div>
+                <div class="right_side">@Html.TextBoxFor(m => m.redirecturl, new { @style = "width:500px;", @required = "required" })</div>
+            </div>
+            <div class="page_box">
+                <div class="left_side">Order by</div>
+                <div class="right_side">@Html.TextBoxFor(m => m.imageorder, new { @required = "required" })</div>
+                @Html.ValidationMessageFor(m => m.imageorder)
+            </div>
+            <div class="page_box">
+                <div class="left_side">Active</div>
+                <div class="right_side">@Html.CheckBoxFor(m => m.isactive)</div>
+            </div>
+            <div class="page_box">
+                <div class="left_side">&nbsp;</div>
+                <div class="right_side">
+                    <input type="submit" value="submit" />&nbsp;
+                    <input type="button" id="BtnBack" value="Back" onclick="window.location ='/Admin/Slider'" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<script type="text/javascript">
+
+    function check(fieid)
+    {
+    var f=0;
+    var filepath=document.getbyElementById(fileid).value
+    var filenameext=filepath.split(".");
+    var extension=filenameext[(filenameext.length-1)];
+    var ext=new Array("png");
+    for(var i=0;i<ext.length;i++)
+    {
+    if(ext[i]==extension)
+    {
+    f=1;
+    }
+    }
+    if(f!=1)
+    {
+    alert("please choose png file only");
+    document.getElementById(fileid).value="";
+    }
+    var url=window.URL||window.webkitURL;
+    var file,img;
+    if((file=document.getElementById(fileid).files[0]))
+    {
+    img=new Image();
+    img.onload=function(){
+    var w=this.width;
+    var h=this.height;
+    if(w!=800&&h!=800)
+    {
+    alert("please upload file 400*400");
+    document.getElementById(fileid).files[0];
+    if(file.size>2097152)
+    {
+    alert("please upload a file having size less than 2mb)
+    }
+    }}
+    }
+    }
+</script>

@@ -1,0 +1,40 @@
+function check(fieid)
+{
+var f=0;
+var filepath=document.getbyElementById(fileid).value
+var filenameext=filepath.split(".");
+var extension=filenameext[(filenameext.length-1)];
+var ext=new Array("png");
+for(var i=0;i<ext.length;i++)
+{
+if(ext[i]==extension)
+{
+f=1;
+}
+}
+if(f!=1)
+{
+alert("please choose png file only");
+document.getElementById(fileid).value="";
+}
+var url=window.URL||window.webkitURL;
+var file,img;
+if((file=document.getElementById(fileid).files[0]))
+{
+img=new Image();
+img.onload=function(){
+var w=this.width;
+var h=this.height;
+if(w!=800&&h!=800)
+{
+alert("please upload file 400*400");
+document.getElementById(fileid).files[0];
+if(file.size>2097152)
+{
+alert("please upload a file having size less than 2mb)
+}
+}}
+}
+}
+
+name="upload" id="upload" onchange="check(this.id);)
